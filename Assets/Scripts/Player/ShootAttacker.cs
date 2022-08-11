@@ -6,6 +6,7 @@ public class ShootAttacker : Attacker
 {
 
     public GameObject bullet;
+    private float shotCost = 10;
     [SerializeField] private float bulletSpeed = 10;
     [SerializeField] private float attackRate = 0.5f;
     private float cooldownCounter = 0;
@@ -26,7 +27,7 @@ public class ShootAttacker : Attacker
     protected override void AttackHold()
     {
         mover.SetCanRotate(false);
-        if(cooldownCounter <= 0)
+        if(cooldownCounter <= 0 && status.UseStamina(shotCost))
         {
             GameObject newBullet = Instantiate(bullet, transform.position, Quaternion.identity);
             newBullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * mover.GetDirection();

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class ChargeAttacker : Attacker
 {
+    public GameObject glow;
 
+    [SerializeField] private float chargeCost = 45;
     [SerializeField] private float chargeSpeed = 10;
 
     // Start is called before the first frame update
@@ -27,14 +29,21 @@ public class ChargeAttacker : Attacker
 
     protected override void AttackHold()
     {
+        status.enabled = false;
         mover.SetCanMove(false);
 
-        rb.velocity = chargeSpeed * mover.GetDirection();
+        bool enoughStamina = status.UseStamina(chargeCost * Time.deltaTime);
+
+        glow.SetActive(enoughStamina);
+        rb.velocity = (enoughStamina ? chargeSpeed : mover.GetSpeed()) * mover.GetDirection();
     }
 
     protected override void AttackUp()
     {
+        status.enabled = true;
         base.AttackUp();
+
+        glow.SetActive(false);
         mover.SetCanMove(true);
         FinishAttack();
     }

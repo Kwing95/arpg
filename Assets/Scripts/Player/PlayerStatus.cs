@@ -15,7 +15,7 @@ public class PlayerStatus : MonoBehaviour
     private float redHealth = 100;
     private float stamina = 100;
 
-    private float staminaRecovery = 1;
+    private float staminaRecovery = 15;
     private float greenRecovery = 1;
 
     private float damageBonus = 1;
@@ -41,7 +41,7 @@ public class PlayerStatus : MonoBehaviour
         stamina = maxStamina;
     }
 
-    public bool UseStamina(int amount)
+    public bool UseStamina(float amount)
     {
         if(stamina >= amount)
         {
@@ -59,4 +59,18 @@ public class PlayerStatus : MonoBehaviour
     {
         return canAct;
     }
+
+    public float GetGreenHealth()
+    {
+        return greenHealth;
+    }
+    public float GetRedHealth()
+    {
+        return redHealth;
+    }
+    public float GetStamina()
+    {
+        return stamina;
+    }
+
 }

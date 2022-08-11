@@ -6,7 +6,7 @@ public abstract class Attacker : MonoBehaviour
 {
 
     protected PlayerMover mover;
-    private PlayerStatus status;
+    protected PlayerStatus status;
     private bool attackDown = false;
     protected Rigidbody2D rb;
 

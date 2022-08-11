@@ -37,6 +37,12 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
+    public void Stop()
+    {
+        SetCanMove(false);
+        rb.velocity = Vector2.zero;
+    }
+
     public void SetCanMove(bool value)
     {
         canMove = value;
@@ -63,5 +69,10 @@ public class PlayerMover : MonoBehaviour
     public Vector2 GetDirection()
     {
         return new Vector2(Mathf.Cos(Mathf.Deg2Rad * (rb.rotation + 90)), Mathf.Sin(Mathf.Deg2Rad * (rb.rotation + 90)));
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
     }
 }

@@ -1,0 +1,27 @@
+Dragoon - Hold attack button and analog stick to aim jump (radial damage)
+  Round helmet
+Archer - Hold attack button for continuous fire; strafe if moving while attacking (ranged damage)
+  Horned helmet
+Barbarian - Hold attack button to charge in one direction (cannot change direction while charging)
+  Angled helmet
+
+Fire - Decrease unit's defense (RED)
+Earth - Decrease unit's speed (GREEN)
+Ice - Decrease unit's attack (BLUE)
+
+Dash - Tap defend while moving
+Parry - Tap defend button while standing still
+
+Assist - Hold attack button while next to downed enemy
+
+Weapon - Boosts damage (Gun, Boots, Helm)
+Rune - Boosts elemental effects
+2x Accessory slots - Different effects (speed, defense, attack, stamina, recovery)
+
+ENEMY
+  Projectile (size, speed, damage, margin of error)
+  Wedge (damage, wedge angle, range)
+  Radius (range, damage)
+  Beam (duration, movement, range, damage)
+  Charge (speed, range, homing, damage)
+  Plume (damage, position)

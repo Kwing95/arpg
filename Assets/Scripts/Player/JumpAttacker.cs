@@ -5,9 +5,13 @@ using UnityEngine;
 public class JumpAttacker : Attacker
 {
 
+    public GameObject explosion;
     public GameObject reticlePrefab;
     private GameObject reticleInstance;
+    private float minJumpDistance = 2;
+    private float jumpCost = 45;
     private float jumpSpeed = 10;
+    private bool jumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,8 @@ public class JumpAttacker : Attacker
     // Update is called once per frame
     new void Update()
     {
-        base.Update();
+        if(!jumping)
+            base.Update();
     }
 
     protected override void AttackDown()
@@ -31,25 +36,51 @@ public class JumpAttacker : Attacker
         reticleInstance.GetComponent<PlayerMover>().SetCanRotate(false);
     }
 
+    protected override void AttackHold()
+    {        
+        base.AttackHold();
+
+        if(ValidJump() && !status.UseStamina(jumpCost * Time.deltaTime))
+                AttackUp();
+    }
+
     protected override void AttackUp()
     {
         base.AttackUp();
-        StartCoroutine(JumpAttack());
+
+        if(ValidJump())
+            StartCoroutine(JumpAttack());
+        else
+        {
+            if(reticleInstance)
+                Destroy(reticleInstance);
+
+            mover.SetCanMove(true);
+            FinishAttack();
+        }
+
+    }
+
+    private bool ValidJump()
+    {
+        return reticleInstance && Vector2.Distance(reticleInstance.transform.position, transform.position) > minJumpDistance;
     }
 
     public IEnumerator JumpAttack()
     {
         if (reticleInstance)
         {
+            jumping = true;
             float airTime = Vector3.Distance(reticleInstance.transform.position, transform.position) / jumpSpeed;
-            // transform.LookAt(reticleInstance.transform, Vector3.forward);
-            transform.up = reticleInstance.transform.position - transform.position;
-            rb.velocity = jumpSpeed * Vector3.Normalize(reticleInstance.transform.position - transform.position);
+            transform.up = reticleInstance.transform.position - transform.position; // Face reticle
+            rb.velocity = jumpSpeed * Vector3.Normalize(reticleInstance.transform.position - transform.position); // Jump
             Destroy(reticleInstance);
 
             yield return new WaitForSeconds(airTime);
         }
 
+        jumping = false;
+        Instantiate(explosion, transform.position, Quaternion.identity);
         mover.SetCanMove(true);
         FinishAttack();
     }

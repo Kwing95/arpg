@@ -11,6 +11,8 @@ public class Dodger : MonoBehaviour
     private float cooldownCounter = 0;
     private float dodgeDuration = 0.15f;
     private float dodgeSpeed = 15;
+    private float staminaCost = 20;
+    private bool buttonDown = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +29,14 @@ public class Dodger : MonoBehaviour
 
         bool canDodge = mover.GetCanMove() && mover.GetCanRotate() && status.GetCanAct();
 
-        if (Input.GetButton("Fire2") && canDodge && cooldownCounter <= 0 && mover.GetIsMoving())
+        if (!buttonDown && Input.GetButton("Fire2") && canDodge && cooldownCounter <= 0 && mover.GetIsMoving() &&
+            status.UseStamina(staminaCost))
         {
             StartCoroutine(Dodge());
             cooldownCounter = dodgeCooldown;
         }
+
+        buttonDown = Input.GetButton("Fire2");
     }
 
     public IEnumerator Dodge()

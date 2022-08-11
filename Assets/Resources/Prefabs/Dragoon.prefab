@@ -74,4 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa27af31ee17484bbaf42a8a298d8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 9073403028531617206, guid: 13ab1a5c8e2f3594a8530c831de0f79c, type: 3}
   reticlePrefab: {fileID: 1849008977979688647, guid: 5ac6f55cb2cd6914db164b678012d72c, type: 3}
